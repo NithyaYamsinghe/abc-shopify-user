@@ -5,7 +5,7 @@ module.exports.updateUser = async (userId, data) => {
   if (data.password) {
     data.password = CryptoJS.AES.encrypt(
       data.password,
-      process.env.JWT_SECRET
+      process.env.JWT_SEC
     ).toString();
   }
 
