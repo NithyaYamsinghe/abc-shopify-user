@@ -8,7 +8,7 @@ module.exports.createUser = async (data) => {
     email: data.email,
     password: CryptoJS.AES.encrypt(
       data.password,
-      process.env.JWT_SECRET
+      process.env.PASS_SEC
     ).toString(),
   });
   return await newUser.save();
@@ -23,7 +23,7 @@ module.exports.signUserIn = async (data) => {
 
   const hashedPassword = CryptoJS.AES.decrypt(
     user.password,
-    process.env.JWT_SECRET
+    process.env.PASS_SEC
   );
 
   const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
@@ -36,10 +36,10 @@ module.exports.signUserIn = async (data) => {
       id: user._id,
       isAdmin: user.isAdmin,
     },
-    process.env.JWT_SECRET,
+    process.env.JWT_SEC,
     { expiresIn: "3d" }
   );
 
   const { password, ...others } = user._doc;
-  return { ...others, accessToken, ok: { message: "DONE" } };
+  return { ...others, accessToken, ok: { message: "done" } };
 };
