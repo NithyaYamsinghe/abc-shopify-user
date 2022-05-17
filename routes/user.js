@@ -26,8 +26,8 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
 //DELETE
 router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
-    await deleteUser(req.params.id);
-    res.send(200);
+    const response = await deleteUser(req.params.id);
+    res.send(200).json(response);
   } catch (err) {
     res.status(500).json(err.message);
   }
